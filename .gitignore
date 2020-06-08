@@ -1,0 +1,6 @@
+bin
+obj
+appsettings.json
+migrations
+EnvironmentVariables.cs
+.vscode
