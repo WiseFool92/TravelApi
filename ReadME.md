@@ -72,21 +72,40 @@ dotnet test
 1. Open MySql Community Installer and reconfigure (legacy password, uncheck windows services)
 2. Open MySql Workbench
 3. On the bar at the top of the page with many options click Create New Schema in the connected server (it looks like triple stacked silicone wafers)
-4. last_first (naming scheme)
-5. Open the drop down for the database created
-6. Right click and select create table
-7. Your first collum name should be SalonId (make sure it is an int) & since this acts as your id key - check these three boxes: Primary Key, not null, & Auto Incrementing
-8. Your next collum name should be StylistName (make sure it is a string (varchar) set to 255)
-9. Your next collum name should be Specialty (make sure it is a string (varchar) set to 255)
-10. Right click on tables and select create table
-11. Your first collum name should be ClientId (make sure it is an int) & since this acts as your id key - check these three boxes: Primary Key, not null, & Auto Incrementing 
-12. Next we will add three collums Name, Type, Contact (make sure it is a string (varchar) set to 255)
-13. Tasks Complete
+4. example_example (naming scheme)
+5. Use Migrations to seed & populate data
 
 ## Connecting to an API
 
-1. 
-2.  
+1. Api Framework
+```sh
+dotnet new webapi --framework netcoreapp2.2
+```
+2. Comment out of Startup.cs
+```sh
+app.UseHttpsRedirection();
+```
+3. Implement data handling packages
+```sh
+dotnet add package Microsoft.EntityFrameworkCore -v 2.2.0
+```
+```sh
+dotnet add package Pomelo.EntityFrameworkCore.MySql -v 2.2.0 
+```
+4. Implement Migrations
+```sh
+dotnet ef migrations add Initial
+```
+```sh
+dotnet ef database update
+```
+5. Seed the database
+```sh
+dotnet ef migrations add SeedData
+```
+```sh
+dotnet ef database update
+```
 
 ## Specs
 
@@ -94,11 +113,13 @@ dotnet test
 #### Travel Api
 |                          Behavior                          | Input  | Output  |
 | :--------------------------------------------------------: | :----: | :-----: |
-| The user can get all reviews about travel destinations. | 'http://localhost:5000/' | 'List of stylists' |
-| The user can add a stylist to the hair salon | 'click add another stylist' 'Natural Hair Care Specialist' | 'Natural Hair Care Specialist' |
-| The user can add clients to each stylist | 'select karen' 'Add Amanda to her clientel' | 'Amanda' |
-| The user can add details to the stylist | 'Name, Type' | 'Betty' 'Colorist' |
-| The user can add details to the patron | 'Name, type of work' | 'Sally' 'Dye Hair Blue' |
+| The user can GET all reviews about travel destinations | 'http://localhost:5000/{reviews}' | 'List of reviews' |
+| The user can POST reviews about travel destinations | 'http://localhost:5000/{country}{city}{review}' | 'Populate a review' |
+| The user can view popular travel destinations | 'http://localhost:5000/{country}{city}{review}' | 'List of popular reviews' |
+| The user Edit their travel reviews | 'http://localhost:5000/{country}{city}{review}{PUT}' | 'Edits review' |
+| The user DELETE their travel reviews | 'http://localhost:5000/{country}{city}{review}{DELETE}' | 'Deletes review' |
+| The user view a random selection of travel reviews | 'http://localhost:5000/{country}{city}{review}{RANDOM}' | 'List of random reviews' |
+
 
 ---
 ## Known Bugs
