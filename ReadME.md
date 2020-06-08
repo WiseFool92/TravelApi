@@ -86,7 +86,7 @@ dotnet test
 ## Connecting to an API
 
 1. 
-2. 
+2.  
 
 ## Specs
 
